@@ -3,7 +3,7 @@
 Get LINE user profile data in LIFF by giving AppId
 
 
-## INSTALLATION
+## Installation
 
 Download and install the package to your site, and then you can access it through the endpoint:
 
