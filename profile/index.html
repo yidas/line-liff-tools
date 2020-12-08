@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vConsole/3.3.4/vconsole.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        // init vConsole
+        var vConsole = new VConsole();
+        console.log('vConsole');
+    </script>
+</head>
+
+<body>
+
+    <div style="padding:30px 10px; max-width: 600px; margin: auto;">
+        <div class="alert alert-danger" id="alert" role="alert" style="display:none;"></div>
+        <div class="form-group">
+            <label for="inputProductName">AppId</label>
+            <input type="text" class="form-control" id="appId" name="appId"
+                placeholder="AppId input missing" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="inputUserId">UserId</label>
+            <input type="text" class="form-control" id="inputUserId" name="userId" placeholder=""
+                value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="inputDisplayName">DisplayName</label>
+            <input type="text" class="form-control" id="inputDisplayName" name="displayName" placeholder=""
+                value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="inputPicture">Picture</label>
+            <input type="text" class="form-control" id="inputPicture" name="picture" placeholder=""
+                value="" readonly>
+            <img id="picture" src="" alt="" class="img-thumbnail" style="display:none;">
+        </div>
+    </div>
+
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <script>
+
+        // Query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const appId = urlParams.get('appId');
+        document.getElementById("appId").value = appId;
+
+        // LIFF
+        liff
+            .init({
+                liffId: appId
+            })
+            .then(() => {
+                // start to use LIFF's api
+                console.log("LIFF init successful");
+
+                if (!liff.isInClient()) {
+                    alertBox("LIFF browser supported only");
+                    return;
+                }
+
+                liff.getProfile()
+                    .then(profile => {
+                        console.log(profile)
+                        document.getElementById("inputUserId").value = profile.userId;
+                        document.getElementById("inputDisplayName").value = profile.displayName;
+                        document.getElementById("inputPicture").value = profile.pictureUrl;
+                        var domPicture = document.getElementById('picture');
+                        domPicture.src = profile.pictureUrl;
+                        domPicture.style.display = "block";
+                    })
+                    .catch((err) => {
+                        console.log('error', err);
+                    });
+            })
+            .catch((err) => {
+                alertBox("LIFF init failed");
+            });
+
+        function alertBox(message) {
+            var dom = document.getElementById('alert');
+            dom.innerHTML = message;
+            dom.style.display = "block";
+            console.log(message);
+        }
+    </script>
+</body>
+
+</html>
