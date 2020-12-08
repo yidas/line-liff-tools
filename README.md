@@ -5,7 +5,7 @@ LINE Front-end Framework (LIFF) Tools for developers
 
 ## Tool list
 
-- [Profile](https://github.com/yidas/line-liff-tools/tree/main/profile)
+- [Profile - Get LINE user profile data in LIFF by giving AppId](https://github.com/yidas/line-liff-tools/tree/main/profile)
 
 
 ## Referencese
