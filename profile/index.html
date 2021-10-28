@@ -35,6 +35,11 @@
                 value="" readonly>
         </div>
         <div class="form-group">
+            <label for="inputAccessToken">AccessToken</label>
+            <input type="text" class="form-control" id="inputAccessToken" name="accessToken" placeholder=""
+                value="" readonly>
+        </div>
+        <div class="form-group">
             <label for="inputPicture">Picture</label>
             <input type="text" class="form-control" id="inputPicture" name="picture" placeholder=""
                 value="" readonly>
@@ -64,11 +69,15 @@
                     return;
                 }
 
+                // AccessToken
+                var accessToken = liff.getAccessToken();
+
                 liff.getProfile()
                     .then(profile => {
                         console.log(profile)
                         document.getElementById("inputUserId").value = profile.userId;
                         document.getElementById("inputDisplayName").value = profile.displayName;
+                        document.getElementById("inputAccessToken").value = accessToken;
                         document.getElementById("inputPicture").value = profile.pictureUrl;
                         var domPicture = document.getElementById('picture');
                         domPicture.src = profile.pictureUrl;
