@@ -45,6 +45,10 @@
                 value="" readonly>
             <img id="picture" src="" alt="" class="img-thumbnail" style="display:none;">
         </div>
+        <div class="form-group">
+            <button onclick='location.href="https://nick.yidas.com/_github/line-liff-tools/profile/?appId=1655311283-5yZYLDqE"'>Reload</button>
+            <button onclick='liff.login({redirectUri: window.location.href});'>LIFF Login</button>
+        </div>
     </div>
 
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
@@ -54,6 +58,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const appId = urlParams.get('appId');
         document.getElementById("appId").value = appId;
+        console.log('Hash:'+window.location.hash)
 
         // LIFF
         liff
@@ -64,13 +69,14 @@
                 // start to use LIFF's api
                 console.log("LIFF init successful");
 
-                if (!liff.isInClient()) {
+                if (!liff.isInClient() && !liff.isLoggedIn()) {
                     alertBox("LIFF browser supported only");
                     return;
                 }
 
                 // AccessToken
                 var accessToken = liff.getAccessToken();
+                // console.log(accessToken)
 
                 liff.getProfile()
                     .then(profile => {
