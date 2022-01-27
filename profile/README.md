@@ -5,7 +5,7 @@ Get LINE user profile data in LIFF by giving AppId
 
 ## Installation
 
-Download and install the package to your site, and then you can access it through the endpoint:
+Just download the package (HTML page) to your site, and then you can access it through the endpoint:
 
 ```
 https://your.domain/line-liff-tools/profile/?appId=your-liff-app-id
